@@ -7,7 +7,8 @@ const clearBtn = document.querySelector('.clear-tasks');
 loadEventListeners();
 
 function loadEventListeners() {
-  form.addEventListener('submit', addTask)
+  form.addEventListener('submit', addTask);
+  taskList.addEventListener('click', removeTask);
 }
 
 function addTask(e) {
@@ -29,4 +30,14 @@ function addTask(e) {
   taskInput.value = '';
 
   e.preventDefault();
+}
+
+function removeTask(e) {
+  if(e.target.parentElement.classList.contains('delete-item')){
+    e.target.parentElement.parentElement.remove();
+  }
+
+  if(e.target.parentElement.parentElement.classList.contains('delete-item')){
+    e.target.parentElement.parentElement.parentElement.remove();
+  }
 }

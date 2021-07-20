@@ -7,10 +7,34 @@ const clearBtn = document.querySelector('.clear-tasks');
 loadEventListeners();
 
 function loadEventListeners() {
+  document.addEventListener('DOMContentLoaded', getTasks);
   form.addEventListener('submit', addTask);
   taskList.addEventListener('click', removeTask);
   clearBtn.addEventListener('click', clearTasks);
   filterInput.addEventListener('keyup', filterTasks);
+}
+
+function getTasks() {
+  let tasks;
+
+  if(localStorage.getItem('tasks') === null){
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  tasks.forEach(function(task){
+    const li = document.createElement('li');
+    li.className = 'collection-item';
+    li.innerText = task;
+
+    const link = document.createElement('a');
+    link.className = 'delete-item secondary-content';
+    link.innerHTML = '<i class="fas fa-times"></i>';
+    li.appendChild(link);
+    
+    taskList.appendChild(li);
+  });
 }
 
 function addTask(e) {

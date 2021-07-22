@@ -75,13 +75,26 @@ function addTaskToLocalStorage(input) {
 }
 
 function removeTask(e) {
+  let tasks = JSON.parse(localStorage.getItem('tasks'));
+  let filteredTasks;
+
   if(e.target.parentElement.classList.contains('delete-item')){
     e.target.parentElement.parentElement.remove();
+
+    filteredTasks = tasks.filter(function(item) {
+      return item !== e.target.parentElement.parentElement.innerText;
+    });
   }
 
   if(e.target.parentElement.parentElement.classList.contains('delete-item')){
     e.target.parentElement.parentElement.parentElement.remove();
+
+    filteredTasks = tasks.filter(function(item) {
+      return item !== e.target.parentElement.parentElement.parentElement.innerText;
+    });
   }
+
+  localStorage.setItem('tasks', JSON.stringify(filteredTasks));
 }
 
 function clearTasks() {
